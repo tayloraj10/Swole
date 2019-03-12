@@ -4,6 +4,7 @@ import '../styles/App.css';
 
 import Header from './Header';
 import Spreadsheet from './Spreadsheet';
+import ExercisesSheet from './ExercisesSheet'
 
 class App extends Component {
   render() {
@@ -11,7 +12,8 @@ class App extends Component {
       <div className="App">
         <Header />
         <div className='Spreadsheet'>
-          <Spreadsheet />
+          {/* <Spreadsheet /> */}
+          <ExercisesSheet />
         </div>
       </div>
     );

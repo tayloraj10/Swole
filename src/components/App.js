@@ -5,7 +5,7 @@ import '../styles/App.css';
 import Header from './Header';
 import Spreadsheet from './Spreadsheet';
 import ExercisesSheet from './ExercisesSheet';
-import GetLastWeight from './GetLastWeight';
+import GetLastWeightPage from '../pages/GetLastWeightPage';
 
 class App extends Component {
   render() {
@@ -14,8 +14,7 @@ class App extends Component {
         <Header />
         <div className='Spreadsheet'>
           {/* <Spreadsheet /> */}
-          {/* <ExercisesSheet /> */}
-          <GetLastWeight />
+          <GetLastWeightPage />
         </div>
       </div>
     );

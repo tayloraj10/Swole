@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 
+import '../styles/GetLastWeightPage.css';
+
 import ExerciseSelection from '../components/ExerciseSelection';
 import PersonSelection from '../components/PersonSelection';
 
 
-const data = [ { "Name": "Bench Press", "Equipment" : "Barbell", "Person": "Taylor", "LastWeight" : { "Set1": { "Reps": 10, "Weight": 135 }, "Set2": { "Reps": 8, "Weight": 155 }, "Set3": { "Reps": 5, "Weight": 175 }, "Set4": { "Reps": 3, "Weight": 185 }, "Set5": { "Reps": 5, "Weight": 155 } } }, { "Name": "Deadlift", "Equipment" : "Barbell", "Person": "Taylor", "LastWeight" : { "Set1": { "Reps": 10, "Weight": 135 }, "Set2": { "Reps": 7, "Weight": 185 }, "Set3": { "Reps": 7, "Weight": 185 } } }, { "Name": "Squat", "Equipment" : "Barbell", "Person": "Taylor", "LastWeight" : { "Set1": { "Reps": 10, "Weight": 135 }, "Set2": { "Reps": 7, "Weight": 185 }, "Set3": { "Reps": 5, "Weight": 225 }, "Set4": { "Reps": 4, "Weight": 225 } } } ]
+const data = [ { "Name": "Bench Press", "Equipment" : "Barbell", "Person": "Rob", "LastWeight" : { "Set1": { "Reps": 10, "Weight": 135 }, "Set2": { "Reps": 8, "Weight": 155 }, "Set3": { "Reps": 5, "Weight": 175 }, "Set4": { "Reps": 3, "Weight": 185 }, "Set5": { "Reps": 5, "Weight": 155 } } }, { "Name": "Deadlift", "Equipment" : "Barbell", "Person": "Taylor", "LastWeight" : { "Set1": { "Reps": 10, "Weight": 135 }, "Set2": { "Reps": 7, "Weight": 185 }, "Set3": { "Reps": 7, "Weight": 185 } } }, { "Name": "Squat", "Equipment" : "Barbell", "Person": "Taylor", "LastWeight" : { "Set1": { "Reps": 10, "Weight": 135 }, "Set2": { "Reps": 7, "Weight": 185 }, "Set3": { "Reps": 5, "Weight": 225 }, "Set4": { "Reps": 4, "Weight": 225 } } } ]
 
 
 class GetLastWeightPage extends Component {
@@ -12,7 +14,8 @@ class GetLastWeightPage extends Component {
         super(props);
         this.getUniqueExercises = this.getUniqueExercises.bind(this);
         this.getUniquePersons = this.getUniquePersons.bind(this);
-        this.state = {uniqueExercises: [], uniquePersons: []}
+        this.getExercisesByPerson = this.getExercisesByPerson.bind(this);
+        this.state = {uniqueExercises: [], uniquePersons: [], exercisesByPerson: {}, exercisesByPersonUnique: [],  data: data}
     }
 
     getUniqueExercises(dataObject) {
@@ -23,15 +26,27 @@ class GetLastWeightPage extends Component {
         this.setState({uniqueExercises: tempList.sort()});
     }
 
+    getExercisesByPerson(event) {
+        const person = event.target.value;
+        let tempObject = {};
+        this.state.data.forEach( (item, index)  => {
+            if (this.state.data[index]['Person'] === person) {
+                tempObject[this.state.data[index]['Name']] = this.state.data[index]['LastWeight']
+            }
+        });
+        this.setState({exercisesByPerson: tempObject});
+        this.setState({exercisesByPersonUnique: Object.keys(tempObject)});
+    }
+
     getUniquePersons(dataObject) {
-        let tempList = []
+        let tempList = ['']
         dataObject.forEach( (item, index)  => {
             if ( !tempList.includes(dataObject[index]['Person']) ) {
                 tempList.push(dataObject[index]['Person']);
             }
         });
         this.setState({uniquePersons: tempList});
-        console.log(this.state.uniquePersons)
+        //console.log(this.state.uniquePersons)
     }
 
     componentDidMount() {
@@ -41,12 +56,12 @@ class GetLastWeightPage extends Component {
 
     render() {
         return (
-            <div>
+            <div className={"weightviewer"}>
                 <div className={"persons selector"}>
-                    <PersonSelection uniquePersons={this.state.uniquePersons} />
+                    <PersonSelection uniquePersons={this.state.uniquePersons} change={this.getExercisesByPerson} />
                 </div>
                 <div className={"exercises selector"}>
-                    <ExerciseSelection uniqueExercises={this.state.uniqueExercises} />
+                    <ExerciseSelection uniqueExercises={this.state.exercisesByPersonUnique} />
                 </div>
             </div>
         )

@@ -5,7 +5,7 @@ class ExerciseSelection extends Component {
     render() {
         return (
             <select>
-                {this.props.uniqueExercises.map((x,y) => <option key={y}>{x}</option>)}
+                {this.props.uniqueExercises.map((x,y) => <option key={y} value={x}>{x}</option>)}
             </select>
         )
     }

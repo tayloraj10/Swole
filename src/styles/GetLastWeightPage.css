@@ -1,0 +1,7 @@
+.selector {
+    margin: 25px 0px;
+}
+
+option {
+    min-width: 50px;
+}

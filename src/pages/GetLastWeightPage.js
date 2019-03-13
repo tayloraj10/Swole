@@ -4,6 +4,7 @@ import '../styles/GetLastWeightPage.css';
 
 import ExerciseSelection from '../components/ExerciseSelection';
 import PersonSelection from '../components/PersonSelection';
+import ExerciseResultsTable from '../components/ExerciseResultsTable';
 
 
 const data = [ { "Name": "Bench Press", "Equipment" : "Barbell", "Person": "Rob", "LastWeight" : { "Set1": { "Reps": 10, "Weight": 135 }, "Set2": { "Reps": 8, "Weight": 155 }, "Set3": { "Reps": 5, "Weight": 175 }, "Set4": { "Reps": 3, "Weight": 185 }, "Set5": { "Reps": 5, "Weight": 155 } } }, { "Name": "Deadlift", "Equipment" : "Barbell", "Person": "Taylor", "LastWeight" : { "Set1": { "Reps": 10, "Weight": 135 }, "Set2": { "Reps": 7, "Weight": 185 }, "Set3": { "Reps": 7, "Weight": 185 } } }, { "Name": "Squat", "Equipment" : "Barbell", "Person": "Taylor", "LastWeight" : { "Set1": { "Reps": 10, "Weight": 135 }, "Set2": { "Reps": 7, "Weight": 185 }, "Set3": { "Reps": 5, "Weight": 225 }, "Set4": { "Reps": 4, "Weight": 225 } } } ]
@@ -62,6 +63,9 @@ class GetLastWeightPage extends Component {
                 </div>
                 <div className={"exercises selector"}>
                     <ExerciseSelection uniqueExercises={this.state.exercisesByPersonUnique} />
+                </div>
+                <div>
+                    <ExerciseResultsTable />
                 </div>
             </div>
         )

@@ -5,3 +5,28 @@
 option {
     min-width: 50px;
 }
+
+.exerciseTable {
+    margin: auto;
+}
+
+.exerciseTable table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+.exerciseTable td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+.exerciseTable tr:nth-child(odd) {
+    background-color: #dddddd;
+}
+
+
+
+
+  

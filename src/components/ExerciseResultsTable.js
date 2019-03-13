@@ -6,19 +6,25 @@ class ExerciseResultsTable extends Component {
         return (
             <table className={'exerciseTable'}>
                 <tr>
-                    <th>Firstname</th>
-                    <th>Lastname</th> 
-                    <th>Age</th>
+                    <th>Set 1</th>
+                    <th>Set 2</th> 
+                    <th>Set 3</th>
+                    <th>Set 4</th>
+                    <th>Set 5</th>
                 </tr>
                 <tr>
-                    <td>Jill</td>
-                    <td>Smith</td> 
-                    <td>50</td>
+                    <td></td>
+                    <td></td> 
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
                 <tr>
-                    <td>Eve</td>
-                    <td>Jackson</td> 
-                    <td>94</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
             </table>
         )

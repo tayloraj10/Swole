@@ -15,6 +15,10 @@ option {
     border-collapse: collapse;
     width: 100%;
   }
+
+.exerciseTable thead {
+    background-color: #dddddd;
+}
   
 .exerciseTable td, th {
     border: 1px solid #dddddd;
@@ -22,7 +26,7 @@ option {
     padding: 8px;
 }
 
-.exerciseTable tr:nth-child(odd) {
+.exerciseTable tr:nth-child(even) {
     background-color: #dddddd;
 }
 

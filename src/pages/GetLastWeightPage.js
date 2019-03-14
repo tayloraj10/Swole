@@ -16,7 +16,19 @@ class GetLastWeightPage extends Component {
         this.getUniqueExercises = this.getUniqueExercises.bind(this);
         this.getUniquePersons = this.getUniquePersons.bind(this);
         this.getExercisesByPerson = this.getExercisesByPerson.bind(this);
-        this.state = {uniqueExercises: [], uniquePersons: [], exercisesByPerson: {}, exercisesByPersonUnique: [],  data: data}
+        this.changeExercise = this.changeExercise.bind(this);
+        this.state = {uniqueExercises: [], uniquePersons: [], exercisesByPerson: {}, exercisesByPersonUnique: [],  data: data, currentExercise: {}}
+    }
+
+    getUniquePersons(dataObject) {
+        let tempList = ['']
+        dataObject.forEach( (item, index)  => {
+            if ( !tempList.includes(dataObject[index]['Person']) ) {
+                tempList.push(dataObject[index]['Person']);
+            }
+        });
+        this.setState({uniquePersons: tempList});
+        //console.log(this.state.uniquePersons)
     }
 
     getUniqueExercises(dataObject) {
@@ -37,17 +49,14 @@ class GetLastWeightPage extends Component {
         });
         this.setState({exercisesByPerson: tempObject});
         this.setState({exercisesByPersonUnique: Object.keys(tempObject)});
+        console.log("Getting Exercises for Person");
     }
 
-    getUniquePersons(dataObject) {
-        let tempList = ['']
-        dataObject.forEach( (item, index)  => {
-            if ( !tempList.includes(dataObject[index]['Person']) ) {
-                tempList.push(dataObject[index]['Person']);
-            }
-        });
-        this.setState({uniquePersons: tempList});
-        //console.log(this.state.uniquePersons)
+    changeExercise(event) {
+        //console.log(this.state.exercisesByPerson);
+        const exercise = event.target.value;
+        this.setState({currentExercise: this.state.exercisesByPerson[exercise]});
+        console.log("Changing Exercise");
     }
 
     componentDidMount() {
@@ -62,10 +71,10 @@ class GetLastWeightPage extends Component {
                     <PersonSelection uniquePersons={this.state.uniquePersons} change={this.getExercisesByPerson} />
                 </div>
                 <div className={"exercises selector"}>
-                    <ExerciseSelection uniqueExercises={this.state.exercisesByPersonUnique} />
+                    <ExerciseSelection uniqueExercises={this.state.exercisesByPersonUnique} change={this.changeExercise} />
                 </div>
                 <div>
-                    <ExerciseResultsTable />
+                    <ExerciseResultsTable exercise={this.state.currentExercise}/>
                 </div>
             </div>
         )

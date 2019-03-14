@@ -56,7 +56,6 @@ class GetLastWeightPage extends Component {
         //console.log(this.state.exercisesByPerson);
         const exercise = event.target.value;
         this.setState({currentExercise: this.state.exercisesByPerson[exercise]});
-        console.log("Changing Exercise");
     }
 
     componentDidMount() {

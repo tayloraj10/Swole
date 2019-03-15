@@ -50,58 +50,63 @@ class GetLastWeightPage extends Component {
     this.getExercisesByPerson = this.getExercisesByPerson.bind(this);
     this.changeExercise = this.changeExercise.bind(this);
     this.state = {
-      uniqueExercises: [],
-      uniquePersons: [],
-      exercisesByPerson: {},
-      exercisesByPersonUnique: [],
+      uniqueExercises: null,
+      uniquePersons: null,
+      exercisesByPerson: null,
+      exercisesByPersonUnique: null,
       data: data,
-      currentExercise: {}
+      currentExercise: null
     };
   }
 
-  getUniquePersons(dataObject) {
-    let tempList = [""];
-    dataObject.forEach((item, index) => {
-      if (!tempList.includes(dataObject[index]["Person"])) {
-        tempList.push(dataObject[index]["Person"]);
-      }
-    });
-    this.setState({ uniquePersons: tempList });
-    //console.log(this.state.uniquePersons)
-  }
+  getUniquePersons = data => [...new Set(data.map(item => item.Person))];
+  getUniqueExercises = data => [...new Set(data.map(item => item.Name))];
 
-  getUniqueExercises(dataObject) {
-    let tempList = [];
-    dataObject.forEach((item, index) => {
-      tempList.push(dataObject[index]["Name"]);
-    });
-    this.setState({ uniqueExercises: tempList.sort() });
-  }
+  // getUniquePersons(dataObject) {
+  //   let tempList = [];
+  //   dataObject.forEach((item, index) => {
+  //     if (!tempList.includes(dataObject[index]["Person"])) {
+  //       tempList.push(dataObject[index]["Person"]);
+  //     }
+  //   });
+  //   this.setState({ uniquePersons: tempList });
+  //   //console.log(this.state.uniquePersons)
+  // }
+
+  // getUniqueExercises(dataObject) {
+  //   let tempList = [];
+  //   dataObject.forEach((item, index) => {
+  //     tempList.push(dataObject[index]["Name"]);
+  //   });
+  //   this.setState({ uniqueExercises: tempList.sort() });
+  // }
 
   getExercisesByPerson(event) {
-    const person = event.target.value;
     let tempObject = {};
     this.state.data.forEach((item, index) => {
-      if (this.state.data[index]["Person"] === person) {
+      if (this.state.data[index]["Person"] === event.target.value) {
         tempObject[this.state.data[index]["Name"]] = this.state.data[index][
           "LastWeight"
         ];
       }
     });
-    this.setState({ exercisesByPerson: tempObject });
-    this.setState({ exercisesByPersonUnique: Object.keys(tempObject) });
-    console.log("Getting Exercises for Person");
+    this.setState({
+      exercisesByPerson: tempObject,
+      exercisesByPersonUnique: Object.keys(tempObject)
+    });
   }
 
   changeExercise(event) {
     //console.log(this.state.exercisesByPerson);
-    const exercise = event.target.value;
-    this.setState({ currentExercise: this.state.exercisesByPerson[exercise] });
+    this.setState({ currentExercise: this.state.exercisesByPerson[event.target.value] });
+    console.log(this.state.currentExercise);
   }
 
   componentDidMount() {
-    this.getUniqueExercises(data);
-    this.getUniquePersons(data);
+    this.setState({
+      uniqueExercises: this.getUniqueExercises(data),
+      uniquePersons: this.getUniquePersons(data)
+    });
   }
 
   render() {

@@ -11,34 +11,34 @@ const data = [
     Name: "Bench Press",
     Equipment: "Barbell",
     Person: "Rob",
-    LastWeight: {
-      Set1: { Reps: 10, Weight: 135 },
-      Set2: { Reps: 8, Weight: 155 },
-      Set3: { Reps: 5, Weight: 175 },
-      Set4: { Reps: 3, Weight: 185 },
-      Set5: { Reps: 5, Weight: 155 }
-    }
+    LastWeight: [
+      { Reps: 10, Weight: 135 },
+      { Reps: 8, Weight: 155 },
+      { Reps: 5, Weight: 175 },
+      { Reps: 3, Weight: 185 },
+      { Reps: 5, Weight: 155 }
+    ]
   },
   {
     Name: "Deadlift",
     Equipment: "Barbell",
     Person: "Taylor",
-    LastWeight: {
-      Set1: { Reps: 10, Weight: 135 },
-      Set2: { Reps: 7, Weight: 185 },
-      Set3: { Reps: 7, Weight: 185 }
-    }
+    LastWeight: [
+      { Reps: 10, Weight: 135 },
+      { Reps: 7, Weight: 185 },
+      { Reps: 7, Weight: 185 }
+    ]
   },
   {
     Name: "Squat",
     Equipment: "Barbell",
     Person: "Taylor",
-    LastWeight: {
-      Set1: { Reps: 10, Weight: 135 },
-      Set2: { Reps: 7, Weight: 185 },
-      Set3: { Reps: 5, Weight: 225 },
-      Set4: { Reps: 4, Weight: 225 }
-    }
+    LastWeight: [
+      { Reps: 10, Weight: 135 },
+      { Reps: 7, Weight: 185 },
+      { Reps: 5, Weight: 225 },
+      { Reps: 4, Weight: 225 }
+    ]
   }
 ];
 
@@ -50,12 +50,12 @@ class GetLastWeightPage extends Component {
     this.getExercisesByPerson = this.getExercisesByPerson.bind(this);
     this.changeExercise = this.changeExercise.bind(this);
     this.state = {
-      uniqueExercises: [],
-      uniquePersons: [],
-      exercisesByPerson: {},
-      exercisesByPersonUnique: [],
+      uniqueExercises: null,
+      uniquePersons: null,
+      exercisesByPerson: null,
+      exercisesByPersonUnique: null,
       data: data,
-      currentExercise: {}
+      currentExercise: null
     };
   }
 
@@ -66,19 +66,22 @@ class GetLastWeightPage extends Component {
     const person = event.target.value;
     let tempObject = {};
     this.state.data.forEach((item, index) => {
-      if (this.state.data[index]["Person"] === person) {
-        tempObject[this.state.data[index]["Name"]] = this.state.data[index][
+      if (this.state.data[index].Person === person) {
+        tempObject[this.state.data[index].Name] = this.state.data[index][
           "LastWeight"
         ];
       }
     });
+
     this.setState({ exercisesByPerson: tempObject });
-    this.setState({ exercisesByPersonUnique: Object.keys(tempObject) });
-    console.log("Getting Exercises for Person");
+    this.setState({
+      exercisesByPersonUnique: Object.keys(tempObject),
+      currentExercise: null
+    });
   }
 
   changeExercise(event) {
-    //console.log(this.state.exercisesByPerson);
+    // console.log(this.state.exercisesByPerson);
     const exercise = event.target.value;
     this.setState({ currentExercise: this.state.exercisesByPerson[exercise] });
   }

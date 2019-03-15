@@ -6,7 +6,7 @@ class ExerciseSelection extends Component {
       <div>
         {this.props.uniqueExercises && (
           <select onChange={this.props.change}>
-            <option>-</option>
+            <option>Pick an Excersize :)</option>
             {this.props.uniqueExercises.map((item, i) => (
               <option key={i} value={item}>
                 {item}

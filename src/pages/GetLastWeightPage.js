@@ -73,7 +73,8 @@ class GetLastWeightPage extends Component {
     });
     this.setState({
       exercisesByPerson: tempObject,
-      exercisesByPersonUnique: Object.keys(tempObject)
+      exercisesByPersonUnique: Object.keys(tempObject),
+      currentExercise: null
     });
   }
 

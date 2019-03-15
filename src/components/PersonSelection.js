@@ -1,15 +1,22 @@
-import React, { Component } from 'react';
-
+import React, { Component } from "react";
 
 class PersonSelection extends Component {
-    render() {
-        return (
-            <select onChange={this.props.change}>
-                {this.props.uniquePersons.map((x,y) => <option key={y} value={x}>{x}</option>)}
-            </select>
-        )
-    }
+  render() {
+    return (
+      <div>
+        {this.props.uniquePersons && (
+          <select onChange={this.props.change}>
+            <option>Select a Person!</option>
+            {this.props.uniquePersons.map((x, y) => (
+              <option key={y} value={x}>
+                {x}
+              </option>
+            ))}
+          </select>
+        )}
+      </div>
+    );
+  }
 }
-
 
 export default PersonSelection;

@@ -91,14 +91,14 @@ class GetLastWeightPage extends Component {
 
   render() {
     return (
-      <div className={"weightviewer"}>
-        <div className={"persons selector"}>
+      <div className="weightviewer">
+        <div className="persons selector">
           <PersonSelection
             uniquePersons={this.state.uniquePersons}
             change={this.getExercisesByPerson}
           />
         </div>
-        <div className={"exercises selector"}>
+        <div className="exercises selector">
           <ExerciseSelection
             uniqueExercises={this.state.exercisesByPersonUnique}
             change={this.changeExercise}

@@ -60,14 +60,7 @@ class GetLastWeightPage extends Component {
   }
 
   getUniquePersons = data => [...new Set(data.map(item => item.Person))];
-
-  getUniqueExercises(dataObject) {
-    let tempList = [];
-    dataObject.forEach((item, index) => {
-      tempList.push(dataObject[index]["Name"]);
-    });
-    this.setState({ uniqueExercises: tempList.sort() });
-  }
+  getUniqueExercises = data => [...new Set(data.map(item => item.Name))];
 
   getExercisesByPerson(event) {
     const person = event.target.value;
@@ -91,7 +84,7 @@ class GetLastWeightPage extends Component {
   }
 
   componentDidMount() {
-    this.getUniqueExercises(data);
+    this.setState({ uniqueExcersizes: this.getUniqueExercises(data) });
     this.setState({ uniquePersons: this.getUniquePersons(data) });
   }
 

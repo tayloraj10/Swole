@@ -8,18 +8,24 @@ class ExerciseResultsTable extends Component {
           <table className={"exerciseTable"}>
             <thead>
               <tr>
-                <th>Set 1</th>
-                <th>Set 2</th>
-                <th>Set 3</th>
-                <th>Set 4</th>
-                <th>Set 5</th>
+                <td />
+                {this.props.exercise.map((x, y) => (
+                  <th key={y + 1}>Set {y + 1}</th>
+                ))}
               </tr>
             </thead>
             <tbody>
               <tr>
-                {/* {this.props.exercise.map((x, y) => (
+                <th>Weight</th>
+                {this.props.exercise.map((x, y) => (
                   <td key={y + 1}>{x.Weight}</td>
-                ))} */}
+                ))}
+              </tr>
+              <tr>
+                <th>Reps</th>
+                {this.props.exercise.map((x, y) => (
+                  <td key={y + 1}>{x.Reps}</td>
+                ))}
               </tr>
               <tr />
             </tbody>

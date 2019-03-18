@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.9.2",
+    "firebase": "^5.9.0",
     "react": "^16.5.2",
     "react-data-grid": "^6.0.2-0",
     "react-dom": "^16.5.2",

@@ -6,6 +6,7 @@ import "../styles/GetLastWeightPage.css";
 import ExerciseSelection from "../components/ExerciseSelection";
 import PersonSelection from "../components/PersonSelection";
 import ExerciseResultsTable from "../components/ExerciseResultsTable";
+import AddNewExercise from "../components/AddNewExercise";
 
 let database;
 let data;
@@ -96,6 +97,9 @@ class GetLastWeightPage extends Component {
         </div>
         <div>
           <ExerciseResultsTable exercise={this.state.currentExercise} />
+        </div>
+        <div>
+          <AddNewExercise />
         </div>
       </div>
     );

@@ -1,6 +1,12 @@
 import React, { Component } from "react";
+import { Button } from "@material-ui/core";
+
+import "../styles/ExerciseResultsTable.css";
 
 class ExerciseResultsTable extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <div>
@@ -31,6 +37,12 @@ class ExerciseResultsTable extends Component {
             </tbody>
           </table>
         )}
+        <Button variant="contained" className={"button"}>
+          Edit
+        </Button>
+        <Button variant="contained" className={"button"}>
+          Add New Exercise
+        </Button>
       </div>
     );
   }

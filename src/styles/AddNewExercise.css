@@ -3,5 +3,24 @@
   min-width: 200px;
   width: 250px;
   margin-top: 25px;
+  display: block;
+  justify-content: center;
+}
+
+.formItem {
   /* display: block; */
+  margin: 10px;
+}
+
+.setInput {
+  display: flex;
+  width: 100%;
+}
+
+.inputItem {
+  display: inline;
+}
+
+.addremove {
+  margin: 5px;
 }

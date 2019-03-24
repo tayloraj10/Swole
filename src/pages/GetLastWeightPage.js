@@ -98,9 +98,6 @@ class GetLastWeightPage extends Component {
         <div>
           <ExerciseResultsTable exercise={this.state.currentExercise} />
         </div>
-        <div>
-          <AddNewExercise />
-        </div>
       </div>
     );
   }

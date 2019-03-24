@@ -16,18 +16,33 @@ class AddNewExercise extends Component {
     super(props);
     this.addSet = this.addSet.bind(this);
     this.removeSet = this.removeSet.bind(this);
-    this.state = { person: "", numberSets: [1] };
+    this.handleWeightChange = this.handleWeightChange.bind(this);
+    this.handleRepChange = this.handleRepChange.bind(this);
+    this.state = { person: "", exercise: "", sets: [[0, 0]] };
   }
 
   addSet() {
-    this.setState({ numberSets: this.state.numberSets.concat([1])});
-    console.log(this.state.numberSets);
+    this.setState({ sets: this.state.sets.concat([[0, 0]]) });
+    console.log(this.state.sets);
   }
 
   removeSet() {
-    this.setState({ numberSets: this.state.numberSets.slice(0, -1)});
-    console.log(this.state.numberSets);
+    this.setState({ sets: this.state.sets.slice(0, -1) });
+    console.log(this.state.sets);
   }
+
+  handleWeightChange(index, event) {
+    let newArray = this.state.sets;
+    newArray[index][0] = event.target.value;
+    this.setState({ sets: newArray });
+  }
+
+  handleRepChange(index, event) {
+    let newArray = this.state.sets;
+    newArray[index][1] = event.target.value;
+    this.setState({ sets: newArray });
+  }
+
 
   render() {
     return (
@@ -42,7 +57,7 @@ class AddNewExercise extends Component {
             <option value="Rob">Rob</option>
           </select>
           <div className="setInputs">
-            {this.state.numberSets.map((x, y) => (
+            {this.state.sets.map((x, y) => (
               <div className={"setInput"}>
                 <label className="inputItem" for={"set" + (y + 1)}>
                   Set {y + 1}
@@ -53,6 +68,8 @@ class AddNewExercise extends Component {
                   name={"set" + (y + 1)}
                   className="formItem"
                   placeholder="Weight"
+                  value={this.state.sets[y][0]}
+                  onChange={e => this.handleWeightChange(y, e)}
                 />
                 <input
                   className="inputItem"
@@ -60,6 +77,8 @@ class AddNewExercise extends Component {
                   name={"set" + (y + 1)}
                   className="formItem"
                   placeholder="Reps"
+                  value={this.state.sets[y][1]}
+                  onChange={e => this.handleRepChange(y, e)}
                 />
               </div>
             ))}
@@ -68,14 +87,14 @@ class AddNewExercise extends Component {
               name="increase"
               value="+"
               onClick={this.addSet}
-              className='addremove'
+              className="addremove"
             />
             <input
               type="button"
               name="decrease"
               value="-"
               onClick={this.removeSet}
-              className='addremove'
+              className="addremove"
             />
           </div>
         </form>

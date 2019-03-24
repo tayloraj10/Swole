@@ -19,6 +19,7 @@ class GetLastWeightPage extends Component {
     this.getExercisesByPerson = this.getExercisesByPerson.bind(this);
     this.changeExercise = this.changeExercise.bind(this);
     this.initializeDatabase = this.initializeDatabase.bind(this);
+    this.refreshDatabase = this.refreshDatabase.bind(this);
     this.state = {
       uniqueExercises: null,
       uniquePersons: null,
@@ -73,7 +74,21 @@ class GetLastWeightPage extends Component {
           uniqueExercises: this.getUniqueExercises(data),
           uniquePersons: this.getUniquePersons(data)
         });
-        console.log(data)
+      });
+  }
+
+  refreshDatabase() {
+    firebase
+      .database()
+      .ref("/")
+      .once("value")
+      .then(snapshot => {
+        data = snapshot.val();
+        this.setState({
+          data: data,
+          uniqueExercises: this.getUniqueExercises(data),
+          uniquePersons: this.getUniquePersons(data)
+        });
       });
   }
 

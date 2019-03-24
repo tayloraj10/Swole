@@ -10,6 +10,7 @@ class ExerciseResultsTable extends Component {
     super(props);
     this.adding = this.adding.bind(this);
     this.editing = this.editing.bind(this);
+    this.addExercise = this.addExercise.bind(this);
     this.state = { add: true, edit: false };
   }
 
@@ -19,6 +20,24 @@ class ExerciseResultsTable extends Component {
 
   editing() {
     alert("Editing");
+  }
+
+  addExercise(newExercise) {
+    //console.log(newExercise);
+
+    let finalSets = [];
+
+    newExercise.sets.forEach((item, index) => {
+      finalSets.push({ Reps: item[1], Weight: item[0] });
+    });
+
+    let firebaseData = {
+      Person: newExercise.Person,
+      Exercise: newExercise.Exercise,
+      LastWeight: finalSets
+    };
+
+    console.log(firebaseData);
   }
 
   render() {
@@ -58,7 +77,9 @@ class ExerciseResultsTable extends Component {
           </div>
         )}
 
-        {this.state.add && <AddNewExercise />}
+        {this.state.add && (
+          <AddNewExercise addExerciseSubmit={this.addExercise} />
+        )}
 
         {/* <Button variant="contained" className={"button"}>
           Edit

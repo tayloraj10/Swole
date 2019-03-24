@@ -20,12 +20,12 @@ class AddNewExercise extends Component {
     this.handleRepChange = this.handleRepChange.bind(this);
     this.handleExerciseChange = this.handleExerciseChange.bind(this);
     this.handlePersonChange = this.handlePersonChange.bind(this);
-    this.state = { person: "", exercise: "", sets: [[0, 0]] };
+    this.state = { Person: "", Exercise: "", sets: [[0, 0]] };
   }
 
   addSet() {
     this.setState({ sets: this.state.sets.concat([[0, 0]]) });
-    console.log(this.state.sets);
+    //console.log(this.state.sets);
   }
 
   removeSet() {
@@ -46,11 +46,11 @@ class AddNewExercise extends Component {
   }
 
   handlePersonChange(event) {
-    this.setState({ person: event.target.value });
+    this.setState({ Person: event.target.value });
   }
 
   handleExerciseChange(event) {
-    this.setState({ exercise: event.target.value });
+    this.setState({ Exercise: event.target.value });
   }
 
   render() {
@@ -58,10 +58,14 @@ class AddNewExercise extends Component {
       <div>
         <form className="newForm">
           <label className="formItem">
-            Name:
-            <input type="text" name="name" />
+            Exercise:
+            <input
+              type="text"
+              name="name"
+              onChange={this.handleExerciseChange}
+            />
           </label>
-          <select className="formItem" onChange={this.handleNameChange}>
+          <select className="formItem" onChange={this.handlePersonChange}>
             <option value="Taylor">Taylor</option>
             <option value="Rob">Rob</option>
           </select>
@@ -107,9 +111,15 @@ class AddNewExercise extends Component {
             />
           </div>
         </form>
-        <button type="submit" value="Submit" className="formItem" >
-          Submit
-        </button>
+        <div>
+          <button
+            type="button"
+            className="formItem"
+            onclick={this.props.addExerciseSubmit(this.state)}
+          >
+            Submit
+          </button>
+        </div>
       </div>
     );
   }
@@ -124,7 +134,7 @@ class AddNewExercise extends Component {
 
 //     <FormControl required>
 //       <Select
-//         value={this.state.person}
+//         value={this.state.Person}
 //         autoWidth
 //         inputProps={{
 //           name: "Person"

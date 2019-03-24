@@ -73,6 +73,7 @@ class GetLastWeightPage extends Component {
           uniqueExercises: this.getUniqueExercises(data),
           uniquePersons: this.getUniquePersons(data)
         });
+        console.log(data)
       });
   }
 

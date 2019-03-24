@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import {
-  Input,
-  Button,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem
-} from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
+// import {
+//   Input,
+//   Button,
+//   FormControl,
+//   InputLabel,
+//   Select,
+//   MenuItem
+// } from "@material-ui/core";
+// import { withStyles } from "@material-ui/core/styles";
 
 import "../styles/AddNewExercise.css";
 
@@ -18,6 +18,8 @@ class AddNewExercise extends Component {
     this.removeSet = this.removeSet.bind(this);
     this.handleWeightChange = this.handleWeightChange.bind(this);
     this.handleRepChange = this.handleRepChange.bind(this);
+    this.handleExerciseChange = this.handleExerciseChange.bind(this);
+    this.handlePersonChange = this.handlePersonChange.bind(this);
     this.state = { person: "", exercise: "", sets: [[0, 0]] };
   }
 
@@ -43,6 +45,13 @@ class AddNewExercise extends Component {
     this.setState({ sets: newArray });
   }
 
+  handlePersonChange(event) {
+    this.setState({ person: event.target.value });
+  }
+
+  handleExerciseChange(event) {
+    this.setState({ exercise: event.target.value });
+  }
 
   render() {
     return (
@@ -52,7 +61,7 @@ class AddNewExercise extends Component {
             Name:
             <input type="text" name="name" />
           </label>
-          <select className="formItem">
+          <select className="formItem" onChange={this.handleNameChange}>
             <option value="Taylor">Taylor</option>
             <option value="Rob">Rob</option>
           </select>
@@ -98,7 +107,7 @@ class AddNewExercise extends Component {
             />
           </div>
         </form>
-        <button type="submit" value="Submit" className="formItem">
+        <button type="submit" value="Submit" className="formItem" >
           Submit
         </button>
       </div>

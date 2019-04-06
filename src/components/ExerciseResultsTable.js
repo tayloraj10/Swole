@@ -11,7 +11,7 @@ class ExerciseResultsTable extends Component {
     this.adding = this.adding.bind(this);
     this.editing = this.editing.bind(this);
     this.addExercise = this.addExercise.bind(this);
-    this.state = { add: true, edit: false };
+    this.state = { add: false, edit: false };
   }
 
   adding() {
@@ -23,8 +23,6 @@ class ExerciseResultsTable extends Component {
   }
 
   addExercise(newExercise) {
-    //console.log(newExercise);
-
     let finalSets = [];
 
     newExercise.sets.forEach((item, index) => {
@@ -36,15 +34,14 @@ class ExerciseResultsTable extends Component {
       Exercise: newExercise.Exercise,
       LastWeight: finalSets
     };
-
-    console.log(firebaseData);
   }
 
   render() {
+    console.log(this.props.exercise);
     return (
       <div>
         {this.props.exercise && (
-          <table className={"exerciseTable"}>
+          <table className="exerciseTable">
             <thead>
               <tr>
                 <td />

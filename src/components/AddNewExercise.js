@@ -1,14 +1,4 @@
 import React, { Component } from "react";
-// import {
-//   Input,
-//   Button,
-//   FormControl,
-//   InputLabel,
-//   Select,
-//   MenuItem
-// } from "@material-ui/core";
-// import { withStyles } from "@material-ui/core/styles";
-
 import "../styles/AddNewExercise.css";
 
 class AddNewExercise extends Component {
@@ -25,12 +15,10 @@ class AddNewExercise extends Component {
 
   addSet() {
     this.setState({ sets: this.state.sets.concat([[0, 0]]) });
-    //console.log(this.state.sets);
   }
 
   removeSet() {
     this.setState({ sets: this.state.sets.slice(0, -1) });
-    console.log(this.state.sets);
   }
 
   handleWeightChange(index, event) {
@@ -124,39 +112,5 @@ class AddNewExercise extends Component {
     );
   }
 }
-
-// <div style={{display: 'block'}}>
-//   <form className={"newForm"}>
-//     <FormControl required fullWidth>
-//       <InputLabel>Exercise</InputLabel>
-//       <Input id="Exercise" name="Exercise" autoFocus />
-//     </FormControl>
-
-//     <FormControl required>
-//       <Select
-//         value={this.state.Person}
-//         autoWidth
-//         inputProps={{
-//           name: "Person"
-//         }}
-//       >
-//         <MenuItem value="">
-//           <em>None</em>
-//         </MenuItem>
-//         <MenuItem value={"Taylor"}>Taylor</MenuItem>
-//         <MenuItem value={"Rob"}>Rob</MenuItem>
-//       </Select>
-//     </FormControl>
-
-//     <Button
-//       type="submit"
-//       variant="contained"
-//       color="secondary"
-//       className={"submitButton"}
-//     >
-//       Submit
-//     </Button>
-//   </form>
-// </div>
 
 export default AddNewExercise;

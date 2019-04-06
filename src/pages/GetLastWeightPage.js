@@ -1,5 +1,6 @@
 import firebase from "firebase";
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import "../styles/GetLastWeightPage.css";
 
@@ -7,6 +8,7 @@ import ExerciseSelection from "../components/ExerciseSelection";
 import PersonSelection from "../components/PersonSelection";
 import ExerciseResultsTable from "../components/ExerciseResultsTable";
 import AddNewExercise from "../components/AddNewExercise";
+import { initializeFirebase, fetchFirebase } from "../actions/firebase.action";
 
 let database;
 let data;
@@ -18,8 +20,7 @@ class GetLastWeightPage extends Component {
     this.getUniquePersons = this.getUniquePersons.bind(this);
     this.getExercisesByPerson = this.getExercisesByPerson.bind(this);
     this.changeExercise = this.changeExercise.bind(this);
-    this.initializeDatabase = this.initializeDatabase.bind(this);
-    this.refreshDatabase = this.refreshDatabase.bind(this);
+
     this.state = {
       uniqueExercises: null,
       uniquePersons: null,
@@ -55,45 +56,8 @@ class GetLastWeightPage extends Component {
     });
   }
 
-  initializeDatabase() {
-    var config = {
-      apiKey: "AIzaSyCctPILOFiuVRIJATTzUlDYeXWICabeGpg",
-      authDomain: "swole-1190b.firebaseapp.com",
-      databaseURL: "https://swole-1190b.firebaseio.com"
-    };
-    firebase.initializeApp(config);
-    database = firebase.database();
-    firebase
-      .database()
-      .ref("/")
-      .once("value")
-      .then(snapshot => {
-        data = snapshot.val();
-        this.setState({
-          data: data,
-          uniqueExercises: this.getUniqueExercises(data),
-          uniquePersons: this.getUniquePersons(data)
-        });
-      });
-  }
-
-  refreshDatabase() {
-    firebase
-      .database()
-      .ref("/")
-      .once("value")
-      .then(snapshot => {
-        data = snapshot.val();
-        this.setState({
-          data: data,
-          uniqueExercises: this.getUniqueExercises(data),
-          uniquePersons: this.getUniquePersons(data)
-        });
-      });
-  }
-
   componentDidMount() {
-    this.initializeDatabase();
+    this.props.initializeFirebase();
   }
 
   render() {
@@ -119,4 +83,11 @@ class GetLastWeightPage extends Component {
   }
 }
 
-export default GetLastWeightPage;
+const mapStateToProps = state => ({ ...state });
+
+export default connect(
+  mapStateToProps,
+  { initializeFirebase, fetchFirebase }
+)(GetLastWeightPage);
+
+export { GetLastWeightPage };

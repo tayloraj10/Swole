@@ -20,7 +20,7 @@ class AddNewExercise extends Component {
     this.handleRepChange = this.handleRepChange.bind(this);
     this.handleExerciseChange = this.handleExerciseChange.bind(this);
     this.handlePersonChange = this.handlePersonChange.bind(this);
-    this.state = { Person: "", Exercise: "", sets: [[0, 0]] };
+    this.state = { Person: "", Exercise: "", sets: [["", ""]] };
   }
 
   addSet() {
@@ -71,8 +71,8 @@ class AddNewExercise extends Component {
           </select>
           <div className="setInputs">
             {this.state.sets.map((x, y) => (
-              <div className={"setInput"}>
-                <label className="inputItem" for={"set" + (y + 1)}>
+              <div key={y} className={"setInput"}>
+                <label className="inputItem" htmlFor={"set" + (y + 1)}>
                   Set {y + 1}
                 </label>
                 <input
@@ -115,7 +115,7 @@ class AddNewExercise extends Component {
           <button
             type="button"
             className="formItem"
-            onclick={this.props.addExerciseSubmit(this.state)}
+            onClick={this.props.addExerciseSubmit(this.state)}
           >
             Submit
           </button>

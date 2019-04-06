@@ -8,8 +8,12 @@
     "react": "^16.5.2",
     "react-data-grid": "^6.0.2-0",
     "react-dom": "^16.5.2",
+    "react-redux": "^6.0.1",
     "react-scripts": "1.1.5",
-    "react-spreadsheet-grid": "^1.4.3"
+    "react-spreadsheet-grid": "^1.4.3",
+    "redux": "^4.0.1",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -37,7 +37,6 @@ class ExerciseResultsTable extends Component {
   }
 
   render() {
-    console.log(this.props.exercise);
     return (
       <div>
         {this.props.exercise && (

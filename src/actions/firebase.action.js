@@ -48,4 +48,24 @@ const fetchFirebase = () => {
   };
 };
 
+// const pushToFirebase = item => {
+//   return dispatch => {
+//     dispatch({ type: PUSH_TO_FIREBASE });
+//     // whatever the push firebase code is
+//     // code
+
+//     // pull
+//     firebase
+//       .database()
+//       .ref("/")
+//       .once("value")
+//       .then(snapshot => {
+//         dispatch({ type: PUSH_TO_FIREBASE_SUCCESS, payload: snapshot.val() });
+//       })
+//       .catch(error => {
+//         dispatch({ type: PUSH_TO_FIREBASE_ERROR });
+//       });
+//   };
+// };
+
 export { initializeFirebase, fetchFirebase };

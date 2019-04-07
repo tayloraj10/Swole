@@ -9,8 +9,16 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header />
-        <GetLastWeightPage />
+        <div className="row">
+          <div className="flex-item">
+            <Header />
+          </div>
+        </div>
+        <div className="row">
+          <div className="flex-item">
+            <GetLastWeightPage />
+          </div>
+        </div>
       </div>
     );
   }

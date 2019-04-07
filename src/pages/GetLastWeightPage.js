@@ -10,9 +10,6 @@ import ExerciseResultsTable from "../components/ExerciseResultsTable";
 import AddNewExercise from "../components/AddNewExercise";
 import { initializeFirebase, fetchFirebase } from "../actions/firebase.action";
 
-let database;
-let data;
-
 class GetLastWeightPage extends Component {
   constructor(props) {
     super(props);
@@ -24,8 +21,7 @@ class GetLastWeightPage extends Component {
       exercises: [],
       uniquePersons: [],
       selectedExercise: null,
-      selectedExercises: null,
-      data: data
+      selectedExercises: null
     };
   }
 
@@ -58,30 +54,24 @@ class GetLastWeightPage extends Component {
 
   render() {
     return (
-      <div className="weightviewer">
-        <div className="persons">
-          {this.props.firebase && this.props.firebase.db && (
-            <PersonSelection
-              uniquePersons={this.getUniquePersons()}
-              change={this.handlePersonChange}
-            />
-          )}
-        </div>
-        <div className="exercises">
-          {this.state.selectedPerson && (
-            <ExerciseSelection
-              selectedExercises={this.state.selectedExercises}
-              change={this.changeExercise}
-            />
-          )}
-        </div>
-        <div>
-          {this.state.selectedExercise && (
-            <ExerciseResultsTable
-              exercise={this.state.selectedExercise[0].LastWeight}
-            />
-          )}
-        </div>
+      <div>
+        {this.props.firebase && this.props.firebase.db && (
+          <PersonSelection
+            uniquePersons={this.getUniquePersons()}
+            change={this.handlePersonChange}
+          />
+        )}
+        {this.state.selectedPerson && (
+          <ExerciseSelection
+            selectedExercises={this.state.selectedExercises}
+            change={this.changeExercise}
+          />
+        )}
+        {this.state.selectedExercise && (
+          <ExerciseResultsTable
+            exercise={this.state.selectedExercise[0].LastWeight}
+          />
+        )}
       </div>
     );
   }

@@ -1,26 +1,18 @@
 .newForm {
-  margin: auto;
-  min-width: 200px;
-  width: 250px;
-  margin-top: 25px;
-  display: block;
-  justify-content: center;
-}
-
-.formItem {
-  /* display: block; */
-  margin: 10px;
+  float: left;
 }
 
 .setInput {
-  display: flex;
+  margin-right: 2em;
+  padding-bottom: 1em;
   width: 100%;
 }
 
-.inputItem {
+.input {
+  margin: 0 0 1em 2em;
   display: inline;
 }
 
-.addremove {
-  margin: 5px;
+.add {
+  margin: 0 1em 1em 1em;
 }

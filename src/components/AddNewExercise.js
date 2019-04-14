@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { addExercise } from "../actions/firebase.action";
+
 import "../styles/AddNewExercise.css";
 
 class AddNewExercise extends Component {
@@ -10,11 +13,11 @@ class AddNewExercise extends Component {
     this.handleRepChange = this.handleRepChange.bind(this);
     this.handleExerciseChange = this.handleExerciseChange.bind(this);
     this.handlePersonChange = this.handlePersonChange.bind(this);
-    this.state = { Person: "", Exercise: "", sets: [["", ""]] };
+    this.state = { Exercise: "", sets: [["", ""]] };
   }
 
   addSet() {
-    this.setState({ sets: this.state.sets.concat([[0, 0]]) });
+    this.setState({ sets: this.state.sets.concat([["", ""]]) });
   }
 
   removeSet() {
@@ -45,66 +48,54 @@ class AddNewExercise extends Component {
     return (
       <div>
         <form className="newForm">
-          <label className="formItem">
+          <label className="setInput">
             Exercise:
             <input
+              className="input"
               type="text"
               name="name"
               onChange={this.handleExerciseChange}
             />
           </label>
-          <select className="formItem" onChange={this.handlePersonChange}>
-            <option value="Taylor">Taylor</option>
-            <option value="Rob">Rob</option>
-          </select>
-          <div className="setInputs">
-            {this.state.sets.map((x, y) => (
-              <div key={y} className={"setInput"}>
-                <label className="inputItem" htmlFor={"set" + (y + 1)}>
-                  Set {y + 1}
-                </label>
-                <input
-                  className="inputItem"
-                  type="text"
-                  name={"set" + (y + 1)}
-                  className="formItem"
-                  placeholder="Weight"
-                  value={this.state.sets[y][0]}
-                  onChange={e => this.handleWeightChange(y, e)}
-                />
-                <input
-                  className="inputItem"
-                  type="text"
-                  name={"set" + (y + 1)}
-                  className="formItem"
-                  placeholder="Reps"
-                  value={this.state.sets[y][1]}
-                  onChange={e => this.handleRepChange(y, e)}
-                />
-              </div>
-            ))}
-            <input
-              type="button"
-              name="increase"
-              value="+"
-              onClick={this.addSet}
-              className="addremove"
-            />
-            <input
-              type="button"
-              name="decrease"
-              value="-"
-              onClick={this.removeSet}
-              className="addremove"
-            />
-          </div>
+
+          {this.state.sets.map((x, y) => (
+            <div key={y} className={"setInput"}>
+              <label htmlFor={"set" + (y + 1)}>Set {y + 1}:</label>
+              <input
+                className="input"
+                type="text"
+                name={"set" + (y + 1)}
+                placeholder="Weight"
+                value={this.state.sets[y][0]}
+                onChange={e => this.handleWeightChange(y, e)}
+              />
+              <input
+                className="input"
+                type="text"
+                name={"set" + (y + 1)}
+                placeholder="Reps"
+                value={this.state.sets[y][1]}
+                onChange={e => this.handleRepChange(y, e)}
+              />
+            </div>
+          ))}
+          <input
+            type="button"
+            name="increase"
+            value="+"
+            onClick={this.addSet}
+            className="add"
+          />
+          <input
+            type="button"
+            name="decrease"
+            value="-"
+            onClick={this.removeSet}
+            className="add"
+          />
         </form>
         <div>
-          <button
-            type="button"
-            className="formItem"
-            onClick={this.props.addExerciseSubmit(this.state)}
-          >
+          <button type="button" onClick={this.props.addExercise}>
             Submit
           </button>
         </div>
@@ -113,4 +104,11 @@ class AddNewExercise extends Component {
   }
 }
 
-export default AddNewExercise;
+const mapStateToProps = state => ({ ...state });
+
+export default connect(
+  mapStateToProps,
+  { addExercise }
+)(AddNewExercise);
+
+export { AddNewExercise };

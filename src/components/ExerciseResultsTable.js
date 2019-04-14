@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-// import { Button } from "@material-ui/core";
-
 import AddNewExercise from "./AddNewExercise";
 
 import "../styles/ExerciseResultsTable.css";
@@ -10,7 +8,6 @@ class ExerciseResultsTable extends Component {
     super(props);
     this.adding = this.adding.bind(this);
     this.editing = this.editing.bind(this);
-    this.addExercise = this.addExercise.bind(this);
     this.state = { add: false, edit: false };
   }
 
@@ -20,20 +17,6 @@ class ExerciseResultsTable extends Component {
 
   editing() {
     alert("Editing");
-  }
-
-  addExercise(newExercise) {
-    let finalSets = [];
-
-    newExercise.sets.forEach((item, index) => {
-      finalSets.push({ Reps: item[1], Weight: item[0] });
-    });
-
-    let firebaseData = {
-      Person: newExercise.Person,
-      Exercise: newExercise.Exercise,
-      LastWeight: finalSets
-    };
   }
 
   render() {
@@ -77,9 +60,7 @@ class ExerciseResultsTable extends Component {
           </div>
         )}
 
-        {this.state.add && (
-          <AddNewExercise addExerciseSubmit={this.addExercise} />
-        )}
+        {this.state.add && <AddNewExercise person={this.props.person} />}
       </div>
     );
   }

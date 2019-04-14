@@ -6,7 +6,10 @@ import {
   REQUEST_FIREBASE,
   RECIEVED_FIREBASE,
   RECIEVED_FIREBASE_ERROR,
-  CLEAR_FIREBASE
+  CLEAR_FIREBASE,
+  ADD_EXERCISE,
+  ADD_EXERCISE_SUCCESS,
+  ADD_EXERCISE_ERROR
 } from "./types";
 
 var config = {
@@ -55,24 +58,24 @@ const clearFirebase = () => {
   };
 };
 
-// const pushToFirebase = item => {
-//   return dispatch => {
-//     dispatch({ type: PUSH_TO_FIREBASE });
-//     // whatever the push firebase code is
-//     // code
+const addExercise = item => {
+  return dispatch => {
+    dispatch({ type: ADD_EXERCISE });
+    // whatever the push firebase code is
+    // code
 
-//     // pull
-//     firebase
-//       .database()
-//       .ref("/")
-//       .once("value")
-//       .then(snapshot => {
-//         dispatch({ type: PUSH_TO_FIREBASE_SUCCESS, payload: snapshot.val() });
-//       })
-//       .catch(error => {
-//         dispatch({ type: PUSH_TO_FIREBASE_ERROR });
-//       });
-//   };
-// };
+    // pull
+    firebase
+      .database()
+      .ref("/")
+      .push(item)
+      .then(snapshot => {
+        dispatch({ type: ADD_EXERCISE_SUCCESS, payload: snapshot.val() });
+      })
+      .catch(error => {
+        dispatch({ type: ADD_EXERCISE_ERROR });
+      });
+  };
+};
 
-export { initializeFirebase, fetchFirebase };
+export { initializeFirebase, fetchFirebase, clearFirebase, addExercise };

@@ -1,18 +1,11 @@
-import firebase from "firebase";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
-import "../styles/GetLastWeightPage.css";
-
 import ExerciseSelection from "../components/ExerciseSelection";
 import PersonSelection from "../components/PersonSelection";
 import ExerciseResultsTable from "../components/ExerciseResultsTable";
-import AddNewExercise from "../components/AddNewExercise";
-import {
-  initializeFirebase,
-  fetchFirebase,
-  clearFirebase
-} from "../actions/firebase.action";
+import { initializeFirebase, fetchFirebase } from "../actions/firebase.action";
+
+import "../styles/GetLastWeightPage.css";
 
 class GetLastWeightPage extends Component {
   constructor(props) {
@@ -97,6 +90,7 @@ class GetLastWeightPage extends Component {
           {this.state.selectedPerson && this.state.selectedExercise && (
             <ExerciseResultsTable
               exercise={this.state.selectedExercise[0].LastWeight}
+              person={this.state.selectedPerson}
             />
           )}
         </div>

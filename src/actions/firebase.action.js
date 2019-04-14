@@ -5,7 +5,8 @@ import {
   INITIALIZE_ERROR,
   REQUEST_FIREBASE,
   RECIEVED_FIREBASE,
-  RECIEVED_FIREBASE_ERROR
+  RECIEVED_FIREBASE_ERROR,
+  CLEAR_FIREBASE
 } from "./types";
 
 var config = {
@@ -45,6 +46,12 @@ const fetchFirebase = () => {
       .catch(error => {
         dispatch({ type: RECIEVED_FIREBASE_ERROR });
       });
+  };
+};
+
+const clearFirebase = () => {
+  return dispatch => {
+    dispatch({ type: CLEAR_FIREBASE });
   };
 };
 

@@ -8,7 +8,11 @@ import ExerciseSelection from "../components/ExerciseSelection";
 import PersonSelection from "../components/PersonSelection";
 import ExerciseResultsTable from "../components/ExerciseResultsTable";
 import AddNewExercise from "../components/AddNewExercise";
-import { initializeFirebase, fetchFirebase } from "../actions/firebase.action";
+import {
+  initializeFirebase,
+  fetchFirebase,
+  clearFirebase
+} from "../actions/firebase.action";
 
 class GetLastWeightPage extends Component {
   constructor(props) {
@@ -21,7 +25,8 @@ class GetLastWeightPage extends Component {
       exercises: [],
       uniquePersons: [],
       selectedExercise: null,
-      selectedExercises: null
+      selectedExercises: null,
+      updated: false
     };
   }
 
@@ -31,17 +36,25 @@ class GetLastWeightPage extends Component {
 
   getExercises = () =>
     this.setState({
-      selectedExercises: this.props.firebase.db.filter(
-        item => item.Person === this.state.selectedPerson
-      )
+      selectedExercises: [
+        { Exercise: "Pick an Exercise" },
+        ...this.props.firebase.db.filter(
+          item => item.Person === this.state.selectedPerson
+        )
+      ]
     });
 
   changeExercise(event) {
-    this.setState({
-      selectedExercise: this.state.selectedExercises.filter(
-        item => item.Exercise === event.target.value
-      )
-    });
+    if (event.target.value === "Pick an Exercise")
+      this.setState({
+        selectedExercise: null
+      });
+    else
+      this.setState({
+        selectedExercise: this.state.selectedExercises.filter(
+          item => item.Exercise === event.target.value
+        )
+      });
   }
 
   componentWillMount() {
@@ -49,29 +62,44 @@ class GetLastWeightPage extends Component {
   }
 
   handlePersonChange = event => {
-    this.setState({ selectedPerson: event.target.value }, this.getExercises);
+    if (event.target.value === "default")
+      this.setState({ selectedPerson: null, selectedExercise: null });
+    else
+      this.setState(
+        {
+          selectedPerson: event.target.value,
+          selectedExercise: null
+        },
+        this.getExercises
+      );
   };
 
   render() {
     return (
       <div>
-        {this.props.firebase && this.props.firebase.db && (
-          <PersonSelection
-            uniquePersons={this.getUniquePersons()}
-            change={this.handlePersonChange}
-          />
-        )}
-        {this.state.selectedPerson && (
-          <ExerciseSelection
-            selectedExercises={this.state.selectedExercises}
-            change={this.changeExercise}
-          />
-        )}
-        {this.state.selectedExercise && (
-          <ExerciseResultsTable
-            exercise={this.state.selectedExercise[0].LastWeight}
-          />
-        )}
+        <div className="item">
+          {this.props.firebase && this.props.firebase.db && (
+            <PersonSelection
+              uniquePersons={this.getUniquePersons()}
+              change={this.handlePersonChange}
+            />
+          )}
+        </div>
+        <div className="item">
+          {this.state.selectedPerson && (
+            <ExerciseSelection
+              selectedExercises={this.state.selectedExercises}
+              change={this.changeExercise}
+            />
+          )}
+        </div>
+        <div className="item">
+          {this.state.selectedPerson && this.state.selectedExercise && (
+            <ExerciseResultsTable
+              exercise={this.state.selectedExercise[0].LastWeight}
+            />
+          )}
+        </div>
       </div>
     );
   }

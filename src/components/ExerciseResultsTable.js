@@ -68,21 +68,18 @@ class ExerciseResultsTable extends Component {
         )}
         {this.props.exercise && (
           <div>
-            <button onClick={this.editing}>Edit</button>
-            <button onClick={this.adding}>Add New Exercise</button>
+            <button className="button" onClick={this.editing}>
+              Edit
+            </button>
+            <button className="button" onClick={this.adding}>
+              Add New Exercise
+            </button>
           </div>
         )}
 
         {this.state.add && (
           <AddNewExercise addExerciseSubmit={this.addExercise} />
         )}
-
-        {/* <Button variant="contained" className={"button"}>
-          Edit
-        </Button>
-        <Button variant="contained" className={"button"}>
-          Add New Exercise
-        </Button> */}
       </div>
     );
   }

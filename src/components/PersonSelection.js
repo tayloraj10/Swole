@@ -6,7 +6,7 @@ class PersonSelection extends Component {
       <div>
         {this.props.uniquePersons && (
           <select onChange={this.props.change}>
-            <option>Who are you?</option>
+            <option value="default">Who are you?</option>
             {this.props.uniquePersons.map((x, y) => (
               <option key={y} value={x}>
                 {x}

@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import '../styles/Header.css';
+import React, { Component } from "react";
+import "../styles/Header.css";
 
 class Header extends Component {
-    render() {
-      return (
-        <header className="App-header">
-            <h1 className="App-title">Swole</h1>
-        </header>
-      );
-    }
+  render() {
+    return (
+      <header className="App-header">
+        <h1 className="App-title">Swole</h1>
+      </header>
+    );
   }
+}
 
 export default Header;

@@ -6,7 +6,6 @@ class ExerciseSelection extends Component {
       <div>
         {this.props.selectedExercises && (
           <select onChange={this.props.change}>
-            <option>Pick an Exercise</option>
             {this.props.selectedExercises.map((item, i) => {
               return (
                 <option key={i} value={item.Exercise}>

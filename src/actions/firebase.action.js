@@ -58,19 +58,17 @@ const clearFirebase = () => {
   };
 };
 
-const addExercise = item => {
+const addExercise = data => {
   return dispatch => {
     dispatch({ type: ADD_EXERCISE });
-    // whatever the push firebase code is
-    // code
-
-    // pull
     firebase
       .database()
       .ref("/")
-      .push(item)
-      .then(snapshot => {
-        dispatch({ type: ADD_EXERCISE_SUCCESS, payload: snapshot.val() });
+      .set({
+        data
+      })
+      .then(() => {
+        dispatch({ type: ADD_EXERCISE_SUCCESS });
       })
       .catch(error => {
         dispatch({ type: ADD_EXERCISE_ERROR });

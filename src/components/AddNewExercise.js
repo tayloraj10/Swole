@@ -13,11 +13,12 @@ class AddNewExercise extends Component {
     this.handleRepChange = this.handleRepChange.bind(this);
     this.handleExerciseChange = this.handleExerciseChange.bind(this);
     this.handlePersonChange = this.handlePersonChange.bind(this);
-    this.state = { Exercise: "", sets: [["", ""]] };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = { exercise: "", sets: [{ Weight: "", Reps: "" }] };
   }
 
   addSet() {
-    this.setState({ sets: this.state.sets.concat([["", ""]]) });
+    this.setState({ sets: this.state.sets.concat([{ Weight: "", Reps: "" }]) });
   }
 
   removeSet() {
@@ -26,13 +27,13 @@ class AddNewExercise extends Component {
 
   handleWeightChange(index, event) {
     let newArray = this.state.sets;
-    newArray[index][0] = event.target.value;
+    newArray[index].Weight = event.target.value;
     this.setState({ sets: newArray });
   }
 
   handleRepChange(index, event) {
     let newArray = this.state.sets;
-    newArray[index][1] = event.target.value;
+    newArray[index].Reps = event.target.value;
     this.setState({ sets: newArray });
   }
 
@@ -41,7 +42,18 @@ class AddNewExercise extends Component {
   }
 
   handleExerciseChange(event) {
-    this.setState({ Exercise: event.target.value });
+    this.setState({ exercise: event.target.value });
+  }
+
+  handleSubmit() {
+    this.props.addExercise([
+      {
+        Person: this.props.person,
+        Exercise: this.state.exercise,
+        LastWeight: this.state.sets
+      },
+      ...this.props.firebase.db
+    ]);
   }
 
   render() {
@@ -66,7 +78,7 @@ class AddNewExercise extends Component {
                 type="text"
                 name={"set" + (y + 1)}
                 placeholder="Weight"
-                value={this.state.sets[y][0]}
+                value={this.state.sets[y].Weight}
                 onChange={e => this.handleWeightChange(y, e)}
               />
               <input
@@ -74,7 +86,7 @@ class AddNewExercise extends Component {
                 type="text"
                 name={"set" + (y + 1)}
                 placeholder="Reps"
-                value={this.state.sets[y][1]}
+                value={this.state.sets[y].Reps}
                 onChange={e => this.handleRepChange(y, e)}
               />
             </div>
@@ -95,7 +107,7 @@ class AddNewExercise extends Component {
           />
         </form>
         <div>
-          <button type="button" onClick={this.props.addExercise}>
+          <button type="button" onClick={this.handleSubmit}>
             Submit
           </button>
         </div>

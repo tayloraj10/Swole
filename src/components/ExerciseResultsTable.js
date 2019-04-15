@@ -7,16 +7,11 @@ class ExerciseResultsTable extends Component {
   constructor(props) {
     super(props);
     this.adding = this.adding.bind(this);
-    this.editing = this.editing.bind(this);
     this.state = { add: false, edit: false };
   }
 
   adding() {
     this.setState({ add: true });
-  }
-
-  editing() {
-    alert("Editing");
   }
 
   render() {
@@ -51,9 +46,6 @@ class ExerciseResultsTable extends Component {
         )}
         {this.props.exercise && (
           <div>
-            <button className="button" onClick={this.editing}>
-              Edit
-            </button>
             <button className="button" onClick={this.adding}>
               Add New Exercise
             </button>

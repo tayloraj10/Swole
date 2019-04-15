@@ -27,15 +27,15 @@ class GetLastWeightPage extends Component {
     ...new Set(this.props.firebase.db.map(item => item.Person))
   ];
 
-  getExercises = () =>
+  getExercises = () => {
+    var uniq = {};
+    const arrFiltered = this.props.firebase.db
+      .filter(item => item.Person === this.state.selectedPerson)
+      .filter(obj => !uniq[obj.Exercise] && (uniq[obj.Exercise] = true));
     this.setState({
-      selectedExercises: [
-        { Exercise: "Pick an Exercise" },
-        ...this.props.firebase.db.filter(
-          item => item.Person === this.state.selectedPerson
-        )
-      ]
+      selectedExercises: [{ Exercise: "Pick an Exercise" }, ...arrFiltered]
     });
+  };
 
   changeExercise(event) {
     if (event.target.value === "Pick an Exercise")

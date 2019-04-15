@@ -66,6 +66,7 @@ const addExercise = data => {
       .set(data)
       .then(() => {
         dispatch({ type: ADD_EXERCISE_SUCCESS });
+        alert("Exercise Added!");
       })
       .catch(error => {
         dispatch({ type: ADD_EXERCISE_ERROR });

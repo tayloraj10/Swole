@@ -22,7 +22,6 @@ const initializeFirebase = () => {
   return dispatch => {
     dispatch({ type: INITIALIZE });
     firebase.initializeApp(config);
-
     firebase
       .database()
       .ref("/")
@@ -64,9 +63,7 @@ const addExercise = data => {
     firebase
       .database()
       .ref("/")
-      .set({
-        data
-      })
+      .set(data)
       .then(() => {
         dispatch({ type: ADD_EXERCISE_SUCCESS });
       })

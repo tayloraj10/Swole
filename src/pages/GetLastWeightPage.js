@@ -4,6 +4,7 @@ import ExerciseSelection from "../components/ExerciseSelection";
 import PersonSelection from "../components/PersonSelection";
 import ExerciseResultsTable from "../components/ExerciseResultsTable";
 import { initializeFirebase, fetchFirebase } from "../actions/firebase.action";
+import AddNewExercise from "../components/AddNewExercise";
 
 import "../styles/GetLastWeightPage.css";
 
@@ -12,14 +13,15 @@ class GetLastWeightPage extends Component {
     super(props);
 
     this.changeExercise = this.changeExercise.bind(this);
-
+    this.adding = this.adding.bind(this);
     this.state = {
       selectedPerson: null,
       exercises: [],
       uniquePersons: [],
       selectedExercise: null,
       selectedExercises: null,
-      updated: false
+      updated: false,
+      add: false
     };
   }
 
@@ -67,6 +69,10 @@ class GetLastWeightPage extends Component {
       );
   };
 
+  adding() {
+    this.setState({ add: true });
+  }
+
   render() {
     return (
       <div>
@@ -84,6 +90,21 @@ class GetLastWeightPage extends Component {
               selectedExercises={this.state.selectedExercises}
               change={this.changeExercise}
             />
+          )}
+        </div>
+        <div className="item">
+          {this.state.selectedPerson && (
+            <div>
+              <div>
+                <button className="button" onClick={this.adding}>
+                  Add New Exercise
+                </button>
+              </div>
+
+              {this.state.add && (
+                <AddNewExercise person={this.state.selectedPerson} />
+              )}
+            </div>
           )}
         </div>
         <div className="item">

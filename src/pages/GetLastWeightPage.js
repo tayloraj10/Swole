@@ -26,7 +26,9 @@ class GetLastWeightPage extends Component {
   }
 
   getUniquePersons = () => [
-    ...new Set(this.props.firebase.db.map(item => item.Person))
+    ...new Set(
+      this.props.firebase.db.map(item => item.Person).filter(item => !!item)
+    )
   ];
 
   getExercises = () => {

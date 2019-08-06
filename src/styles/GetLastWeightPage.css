@@ -14,24 +14,28 @@ option {
   font-family: arial, sans-serif;
   border-collapse: collapse;
   width: 100%;
+  background-color: white;
 }
 
 .exerciseTable thead {
-  background-color: #dddddd;
+  background-color: white;
 }
 
 .exerciseTable td,
 th {
-  border: 1px solid #dddddd;
+  border: 1px solid white;
   text-align: left;
   padding: 8px;
 }
 
 .exerciseTable tr:nth-child(even) {
-  background-color: #dddddd;
+  background-color: white;
+}
+
+.exerciseTable tr:nth-child(odd) {
+  background-color: slategray;
 }
 
 .item {
   padding: 0.5em;
-  background-color: whitesmoke;
 }

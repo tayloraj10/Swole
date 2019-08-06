@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { addExercise } from "../actions/firebase.action";
+import TextField from "@material-ui/core/TextField";
+import MenuItem from "@material-ui/core/MenuItem";
+import Button from "@material-ui/core/Button";
 
 import "../styles/AddNewExercise.css";
 
@@ -46,48 +49,48 @@ class AddNewExercise extends Component {
   }
 
   handleSubmit() {
-    this.props.addExercise([
-      {
-        Person: this.props.person,
-        Exercise: this.state.exercise,
-        LastWeight: this.state.sets
-      },
-      ...this.props.firebase.db
-    ]);
+    if (this.props.person === "Who are you?") {
+      alert("Please select a person");
+    } else {
+      this.props.addExercise([
+        {
+          Person: this.props.person,
+          Exercise: this.state.exercise,
+          LastWeight: this.state.sets
+        },
+        ...this.props.firebase.db
+      ]);
+    }
   }
 
   render() {
     return (
       <div>
         <form className="newForm">
-          <label className="setInput">
-            Exercise:
-            <input
-              className="input"
-              type="text"
-              name="name"
-              onChange={this.handleExerciseChange}
-            />
-          </label>
+          <TextField
+            id="standard-name"
+            label="Exercise:"
+            value={this.state.exercise}
+            onChange={this.handleExerciseChange}
+            margin="normal"
+          />
 
           {this.state.sets.map((x, y) => (
             <div key={y} className={"setInput"}>
               <label htmlFor={"set" + (y + 1)}>Set {y + 1}:</label>
-              <input
-                className="input"
-                type="text"
-                name={"set" + (y + 1)}
-                placeholder="Weight"
+              <TextField
+                id="standard-name"
+                label={`Weight`}
                 value={this.state.sets[y].Weight}
                 onChange={e => this.handleWeightChange(y, e)}
+                margin="normal"
               />
-              <input
-                className="input"
-                type="text"
-                name={"set" + (y + 1)}
-                placeholder="Reps"
+              <TextField
+                id="standard-name"
+                label={`Reps`}
                 value={this.state.sets[y].Reps}
-                onChange={e => this.handleRepChange(y, e)}
+                onChange={e => this.handleWeightChange(y, e)}
+                margin="normal"
               />
             </div>
           ))}

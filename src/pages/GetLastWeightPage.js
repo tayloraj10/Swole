@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import ExerciseSelection from "../components/ExerciseSelection";
-import PersonSelection from "../components/PersonSelection";
+// import ExerciseSelection from "../components/ExerciseSelection";
 import ExerciseResultsTable from "../components/ExerciseResultsTable";
 import { initializeFirebase, fetchFirebase } from "../actions/firebase.action";
 import AddNewExercise from "../components/AddNewExercise";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import Button from "@material-ui/core/Button";
 
 import "../styles/GetLastWeightPage.css";
 
@@ -15,43 +17,41 @@ class GetLastWeightPage extends Component {
     this.changeExercise = this.changeExercise.bind(this);
     this.adding = this.adding.bind(this);
     this.state = {
-      selectedPerson: null,
+      selectedPerson: "Who are you?",
       exercises: [],
-      uniquePersons: [],
-      selectedExercise: null,
+      selectedExerciseName: "Select an Exercise",
       selectedExercises: null,
       updated: false,
       add: false
     };
   }
-
-  getUniquePersons = () => [
-    ...new Set(
-      this.props.firebase.db.map(item => item.Person).filter(item => !!item)
-    )
-  ];
-
   getExercises = () => {
     var uniq = {};
     const arrFiltered = this.props.firebase.db
       .filter(item => item.Person === this.state.selectedPerson)
       .filter(obj => !uniq[obj.Exercise] && (uniq[obj.Exercise] = true));
+    // [{ Exercise: "Pick an Exercise" }, ...arrFiltered]
     this.setState({
-      selectedExercises: [{ Exercise: "Pick an Exercise" }, ...arrFiltered]
+      selectedExercises: arrFiltered
     });
   };
 
   changeExercise(event) {
-    if (event.target.value === "Pick an Exercise")
+    if (event.target.value === "Select an Exercise") {
       this.setState({
+        selectedExerciseName: event.target.value,
         selectedExercise: null
       });
-    else
+    } else {
+      const thing = this.state.selectedExercises.filter(
+        item => item.Exercise === event.target.value
+      );
+
       this.setState({
-        selectedExercise: this.state.selectedExercises.filter(
-          item => item.Exercise === event.target.value
-        )
+        selectedExerciseName: thing[0].Exercise,
+        selectedExercise: thing[0]
       });
+    }
   }
 
   componentWillMount() {
@@ -59,13 +59,16 @@ class GetLastWeightPage extends Component {
   }
 
   handlePersonChange = event => {
-    if (event.target.value === "default")
-      this.setState({ selectedPerson: null, selectedExercise: null });
+    if (event.target.value === "Who are you?")
+      this.setState({
+        selectedPerson: null,
+        selectedExercise: null,
+        selectedExerciseName: null
+      });
     else
       this.setState(
         {
-          selectedPerson: event.target.value,
-          selectedExercise: null
+          selectedPerson: event.target.value
         },
         this.getExercises
       );
@@ -77,47 +80,71 @@ class GetLastWeightPage extends Component {
 
   render() {
     return (
-      <div>
-        <div className="item">
-          {this.props.firebase && this.props.firebase.db && (
-            <PersonSelection
-              uniquePersons={this.getUniquePersons()}
-              change={this.handlePersonChange}
-            />
-          )}
-        </div>
-        <div className="item">
-          {this.state.selectedPerson && (
-            <ExerciseSelection
-              selectedExercises={this.state.selectedExercises}
-              change={this.changeExercise}
-            />
-          )}
-        </div>
-        <div className="item">
-          {this.state.selectedPerson && (
-            <div>
-              <div>
-                <button className="button" onClick={this.adding}>
-                  Add New Exercise
-                </button>
-              </div>
+      <React.Fragment>
+        {this.props.firebase && this.props.firebase.users && (
+          <div>
+            <div className="item">
+              <Select
+                value={this.state.selectedPerson}
+                onChange={this.handlePersonChange}
+                style={{ backgroundColor: "white" }}
+              >
+                <MenuItem value="Who are you?">Who are you?</MenuItem>
 
-              {this.state.add && (
-                <AddNewExercise person={this.state.selectedPerson} />
+                {this.props.firebase.users.map((x, y) => (
+                  <MenuItem key={y} value={x}>
+                    {x}
+                  </MenuItem>
+                ))}
+              </Select>
+            </div>
+            <div className="item">
+              {this.state.selectedPerson && this.state.selectedExercises && (
+                <Select
+                  value={this.state.selectedExerciseName}
+                  onChange={this.changeExercise}
+                  style={{ backgroundColor: "white" }}
+                >
+                  <MenuItem
+                    key={"Select an Exercise"}
+                    value={"Select an Exercise"}
+                  >
+                    {"Select an Exercise"}
+                  </MenuItem>
+                  {this.state.selectedExercises.map((item, i) => (
+                    <MenuItem key={i} value={item.Exercise}>
+                      {item.Exercise}
+                    </MenuItem>
+                  ))}
+                </Select>
               )}
             </div>
-          )}
-        </div>
-        <div className="item">
-          {this.state.selectedPerson && this.state.selectedExercise && (
-            <ExerciseResultsTable
-              exercise={this.state.selectedExercise[0].LastWeight}
-              person={this.state.selectedPerson}
-            />
-          )}
-        </div>
-      </div>
+            <div className="item">
+              {this.state.selectedPerson && (
+                <div>
+                  <Button variant="contained" onClick={this.adding}>
+                    Add New Exercise
+                  </Button>
+
+                  {this.state.add && (
+                    <AddNewExercise person={this.state.selectedPerson} />
+                  )}
+                </div>
+              )}
+            </div>
+            <div className="item">
+              {this.state.selectedPerson &&
+                this.state.selectedExercise &&
+                this.state.selectedExerciseName !== "Select an Exercise" && (
+                  <ExerciseResultsTable
+                    exercise={this.state.selectedExercise.LastWeight}
+                    person={this.state.selectedPerson}
+                  />
+                )}
+            </div>
+          </div>
+        )}
+      </React.Fragment>
     );
   }
 }

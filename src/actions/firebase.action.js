@@ -58,12 +58,13 @@ const clearFirebase = () => {
 };
 
 const addExercise = data => {
+  const filtered = data.filter(item => item);
   return dispatch => {
     dispatch({ type: ADD_EXERCISE });
     firebase
       .database()
       .ref("/")
-      .set(data)
+      .set(filtered)
       .then(() => {
         dispatch({ type: ADD_EXERCISE_SUCCESS });
         alert("Exercise Added!");

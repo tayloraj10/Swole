@@ -1,19 +1,21 @@
 import React, { Component } from "react";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 
 class ExerciseSelection extends Component {
   render() {
     return (
       <div>
         {this.props.selectedExercises && (
-          <select onChange={this.props.change}>
+          <Select onChange={this.props.change}>
             {this.props.selectedExercises.map((item, i) => {
               return (
-                <option key={i} value={item.Exercise}>
+                <MenuItem key={i} value={item.Exercise}>
                   {item.Exercise}
-                </option>
+                </MenuItem>
               );
             })}
-          </select>
+          </Select>
         )}
       </div>
     );

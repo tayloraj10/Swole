@@ -1,18 +1,11 @@
 .newForm {
-  float: left;
-}
-
-.setInput {
-  margin-right: 2em;
+  margin: 1em;
   padding-bottom: 1em;
-  width: 100%;
-}
-
-.input {
-  margin: 0 0 1em 2em;
-  display: inline;
+  background-color: white;
+  border-radius: 10px;
 }
 
 .add {
+  display: inline;
   margin: 0 1em 1em 1em;
 }

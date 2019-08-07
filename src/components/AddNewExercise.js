@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { addExercise } from "../actions/firebase.action";
 import TextField from "@material-ui/core/TextField";
-import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 
 import "../styles/AddNewExercise.css";
@@ -25,7 +24,9 @@ class AddNewExercise extends Component {
   }
 
   removeSet() {
-    this.setState({ sets: this.state.sets.slice(0, -1) });
+    if (this.state.sets.length > 1) {
+      this.setState({ sets: this.state.sets.slice(0, -1) });
+    }
   }
 
   handleWeightChange(index, event) {
@@ -69,51 +70,58 @@ class AddNewExercise extends Component {
         <form className="newForm">
           <TextField
             id="standard-name"
-            label="Exercise:"
+            label="Exercise"
             value={this.state.exercise}
             onChange={this.handleExerciseChange}
             margin="normal"
           />
 
           {this.state.sets.map((x, y) => (
-            <div key={y} className={"setInput"}>
-              <label htmlFor={"set" + (y + 1)}>Set {y + 1}:</label>
+            <div key={y}>
+              <div className="weight">
+                <TextField
+                  className="weight"
+                  label={`Weight`}
+                  value={this.state.sets[y].Weight}
+                  onChange={e => this.handleWeightChange(y, e)}
+                  margin="normal"
+                />
+              </div>
               <TextField
-                id="standard-name"
-                label={`Weight`}
-                value={this.state.sets[y].Weight}
-                onChange={e => this.handleWeightChange(y, e)}
-                margin="normal"
-              />
-              <TextField
-                id="standard-name"
+                className="reps"
                 label={`Reps`}
                 value={this.state.sets[y].Reps}
-                onChange={e => this.handleWeightChange(y, e)}
+                onChange={e => this.handleRepChange(y, e)}
                 margin="normal"
               />
+              <hr />
             </div>
           ))}
-          <input
-            type="button"
-            name="increase"
-            value="+"
-            onClick={this.addSet}
-            className="add"
-          />
-          <input
-            type="button"
-            name="decrease"
-            value="-"
-            onClick={this.removeSet}
-            className="add"
-          />
+
+          <div className="add">
+            <Button
+              style={{ backgroundColor: "#03DAC6" }}
+              variant="contained"
+              onClick={this.addSet}
+            >
+              +
+            </Button>
+          </div>
+          <div className="add">
+            <Button
+              style={{ backgroundColor: "#03DAC6" }}
+              className="add"
+              variant="contained"
+              onClick={this.removeSet}
+            >
+              -
+            </Button>
+          </div>
         </form>
-        <div>
-          <button type="button" onClick={this.handleSubmit}>
-            Submit
-          </button>
-        </div>
+
+        <Button variant="contained" onClick={this.handleSubmit}>
+          Submit
+        </Button>
       </div>
     );
   }
